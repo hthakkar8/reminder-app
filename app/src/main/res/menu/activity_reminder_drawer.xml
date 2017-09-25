@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/setremainder"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Set Remainder" />
+        <item
+            android:id="@+id/viewremainder"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="View Remainder" />
+        <item
+            android:id="@+id/myprofile"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Profile" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/loggingout"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Log Out" />
+        </menu>
+    </item>
+
+</menu>

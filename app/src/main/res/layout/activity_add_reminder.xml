@@ -1,0 +1,158 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="18dp"
+    android:paddingRight="18dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:layout_marginTop="40dp"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextLabel"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/reminderName"
+                    android:hint="Reminder Name"
+                    android:ems="10"
+                    android:drawableRight="@drawable/ic_edit_blue_24dp"
+                    android:background="@android:color/transparent"
+                    android:padding="8dp"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#3b5996"/>
+            </android.support.design.widget.TextInputLayout>
+
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:hintTextAppearance="@style/TextLabel"
+                android:id="@+id/startDateInputLayout">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/reminderStartTime"
+                    android:hint="Reminder Start Date"
+                    android:ems="10"
+                    android:background="@android:color/transparent"
+                    android:padding="8dp"
+                    android:inputType="text"
+                    android:drawableRight="@drawable/ic_access_time_blue_24dp"
+                    android:maxLines="1"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#3b5996"/>
+            </android.support.design.widget.TextInputLayout>
+
+
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextLabel"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/reminderEndTime"
+                    android:hint="Reminder End Time"
+                    android:ems="10"
+                    android:background="@android:color/transparent"
+                    android:padding="8dp"
+                    android:inputType="text"
+                    android:drawableRight="@drawable/ic_access_time_blue_24dp"
+                    android:maxLines="1"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#3b5996"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:id="@+id/placeDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:id="@+id/placename"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/reminderTime"
+                        android:layout_marginTop="20dp"
+                        android:text="Place Name"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/placeadd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Place Address"
+                        android:textSize="17sp"
+                        android:layout_below="@+id/placename" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/getadd"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:layout_alignRight="@+id/placeDetail"
+                    android:layout_marginTop="15dp"
+                    android:drawableRight="@drawable/ic_location_on_blue_24dp"
+                    android:paddingRight="15dp"
+                    />
+
+            </RelativeLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_btn2"
+                android:id="@+id/setReminder"
+                android:text="Set Reminder"
+                android:textColor="#fff"
+                android:textAllCaps="false"
+                android:padding="16dp"
+                android:clickable="true"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
+                android:layout_marginTop="20dp"/>
+
+</LinearLayout>
+</ScrollView>
+</LinearLayout>
