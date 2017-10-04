@@ -34,6 +34,9 @@
             android:name=".ReminderActivity"
             android:label="@string/title_activity_reminder"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <receiver
+            android:name="com.example.suyog.locationtracker.AlarmReceiver"/>
     </application>
 
 </manifest>

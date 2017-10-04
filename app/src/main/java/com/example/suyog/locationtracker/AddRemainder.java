@@ -1,8 +1,11 @@
 package com.example.suyog.locationtracker;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -259,6 +262,7 @@ public class AddRemainder extends Fragment {
             Reminder reminder = new Reminder(id,rname,reminderStartDate,reminderEndDate,pname,padd,logitude,latitude);
             ReminderSet rs = ReminderSet.get(getActivity());
             rs.addReminder(reminder);
+            setAlarm();
             Toast.makeText(getActivity(),"Reminder Added",Toast.LENGTH_LONG);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content , new ReminderListFragment())
                          .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -290,6 +294,18 @@ public class AddRemainder extends Fragment {
         }
 
 
+    }
+    public void setAlarm()
+    {
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.setTimeInMillis(getDate(reminderStartTime).getTime());
+        Log.i("CurrentTime", String.valueOf(cal.getTimeInMillis()));
+        Intent intent = new Intent(getContext(), AlarmReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(),99, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
     }
 
 
