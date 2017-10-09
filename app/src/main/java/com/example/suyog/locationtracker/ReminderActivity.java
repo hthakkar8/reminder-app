@@ -1,8 +1,12 @@
 package com.example.suyog.locationtracker;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +21,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.awareness.Awareness;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,16 +35,31 @@ import java.util.List;
 public class ReminderActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int REQUEST_PERMISSION_RESULT_CODE =22 ;
     ProgressDialog progressDialog;
     FirebaseAuth auth;
 
     TextView name;
     TextView email;
     NavigationView navigationView;
+
+    public static final String LOCATION_FENCE_KEY = "LocationFenceKey";
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.i("Fence", "not getting permission");
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_PERMISSION_RESULT_CODE);
+        }
 
         auth=FirebaseAuth.getInstance();
         DatabaseReference userReference= FirebaseDatabase.getInstance().getReference("appusers").child(auth.getCurrentUser().getUid());
@@ -140,5 +161,14 @@ public class ReminderActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        moveTaskToBack(true);
+        Log.i("Fence","onDestroy");
+        super.onDestroy();
+
     }
 }

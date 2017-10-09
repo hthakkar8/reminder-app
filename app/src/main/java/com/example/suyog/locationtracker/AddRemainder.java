@@ -262,7 +262,9 @@ public class AddRemainder extends Fragment {
             Reminder reminder = new Reminder(id,rname,reminderStartDate,reminderEndDate,pname,padd,logitude,latitude);
             ReminderSet rs = ReminderSet.get(getActivity());
             rs.addReminder(reminder);
-            setAlarm();
+
+            setAlarm(rname,pname,logitude,latitude);
+            Log.i("Fence","after setAlarm()");
             Toast.makeText(getActivity(),"Reminder Added",Toast.LENGTH_LONG);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content , new ReminderListFragment())
                          .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -295,16 +297,22 @@ public class AddRemainder extends Fragment {
 
 
     }
-    public void setAlarm()
+    public void setAlarm(String rname,String pname,double longitude,double latitude)
     {
-        java.util.Calendar cal = java.util.Calendar.getInstance();
+        Log.i("Fence","setAlarm()");
+        Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(getDate(reminderStartTime).getTime());
-        Log.i("CurrentTime", String.valueOf(cal.getTimeInMillis()));
+        Log.i("Fence", String.valueOf(cal.getTimeInMillis()));
         Intent intent = new Intent(getContext(), AlarmReceiver.class);
-
+        intent.putExtra("rname",rname);
+        intent.putExtra("place",pname);
+        intent.putExtra("lng",longitude);
+        intent.putExtra("lat",latitude);
+        Log.i("Fence","got lat lng");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(),99, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Log.i("Fence","PENDING INTENT");
         AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
-
+        Log.i("Fence","ALARM MANAGER");
         alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
     }
 

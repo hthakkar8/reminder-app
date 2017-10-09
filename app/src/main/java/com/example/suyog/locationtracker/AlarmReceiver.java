@@ -1,5 +1,6 @@
 package com.example.suyog.locationtracker;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -8,33 +9,33 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import static java.security.AccessController.getContext;
+
 /**
  * Created by abc on 10/3/2017.
  */
 
 public class AlarmReceiver extends BroadcastReceiver
 {
+    double latitude,logitude;
+    String rname,place;
 
     @Override
     public void onReceive(Context context, Intent intent)
     {
-        createNotification(context,"Reminding You","Your Reminder","Alert");
-        Log.i("HEY","IN ALARM");
-    }
-
-    private void createNotification(Context context, String msg, String msgText, String alert)
-    {
-        PendingIntent pi = PendingIntent.getActivity(context,0,new Intent(context,MainActivity.class),0);
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setContentTitle(msg).setContentText(msgText).setTicker(alert).setSmallIcon(R.drawable.icon);
-
-        mBuilder.setContentIntent(pi);
-
-        mBuilder.setDefaults(NotificationCompat.DEFAULT_SOUND);
-        mBuilder.setAutoCancel(true);
-
-        NotificationManager nm = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-        nm.notify(1,mBuilder.build());
-    }
-
-
+        Log.i("Fence","in alarm receiver");
+        Log.i("Fence","in alarm receiver2");
+        latitude= (double) intent.getExtras().get("lat");
+        logitude=(double) intent.getExtras().get("lng");
+        rname= (String) intent.getExtras().get("rname");
+        place=(String) intent.getExtras().get("place");
+        Log.i("Fence","Alarm Manager : "+latitude+" "+logitude);
+        Intent location=new Intent(context,LocationService.class);
+        location.putExtra("lng",logitude);
+        location.putExtra("lat",latitude);
+        location.putExtra("rname",rname);
+        location.putExtra("place",place);
+        context.startService(location);
+        Log.i("Fence","latitude"+"  "+"logitude");
+   }
 }
