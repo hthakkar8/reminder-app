@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
         }
+        stopService(new Intent(this, RingtoneService.class));
 
         getSupportFragmentManager().beginTransaction().add(R.id.container,new Login(),"Log In").commit();
 
