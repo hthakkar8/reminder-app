@@ -62,7 +62,6 @@ public class AddRemainder extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.activity_add_reminder,container,false);
 
-
         auth=FirebaseAuth.getInstance();
         remindersDatabase = FirebaseDatabase.getInstance().getReference();
         progressDialog=new ProgressDialog(getActivity());
@@ -297,7 +296,7 @@ public class AddRemainder extends Fragment {
 
 
     }
-    public void setAlarm(String rname, String pname, double longitude, double latitude, String id)
+    public void setAlarm(String rname,String pname,double longitude,double latitude,String id)
     {
         Log.i("Fence","setAlarm()");
         Calendar cal = Calendar.getInstance();

@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,9 +15,7 @@ import android.widget.Toast;
 import com.google.android.gms.awareness.Awareness;
 import com.google.android.gms.awareness.fence.FenceState;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 /**
  * Created by SUYOG on 10/5/2017.
  */
@@ -24,8 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class FenceReceiver extends BroadcastReceiver{
 
     final  String TAG = "Fence";
-    DatabaseReference mReminderRef;
-    FirebaseAuth  mAuth;
 
 
 
@@ -38,15 +35,12 @@ public class FenceReceiver extends BroadcastReceiver{
             switch(fenceState.getCurrentState()) {
                 case FenceState.TRUE:
                     //Log.i(TAG, "Location Entering");
-                    Toast.makeText(context,"entering in location",Toast.LENGTH_LONG).show();
 
                     createNotification(context,intent.getStringExtra("rname"),intent.getStringExtra("place"),"Alert");
-
-
-
-
-                    Log.i("Fence",LocationService.mGoogleApiClient.toString()+"");
-                    LocationService.mAddGeoFence.removeLocationFence(ReminderActivity.LOCATION_FENCE_KEY,context);
+                    ReminderSet reminderSet=ReminderSet.get(context);
+                    reminderSet.deleteReminderByKey(intent.getStringExtra("id"));
+                    Log.i("Fence","deleted Reminder");
+                    LocationService.mAddGeoFence.removeLocationFence(ReminderActivity.LOCATION_FENCE_KEY,context,LocationService.mGoogleApiClient);
                     context.stopService(new Intent(context,LocationService.class));
                     Log.i(TAG,"IN ALARM");
                     break;
@@ -64,7 +58,7 @@ public class FenceReceiver extends BroadcastReceiver{
 
     private void createNotification(Context context, String msg, String msgText, String alert)
     {
-        PendingIntent pi = PendingIntent.getActivity(context,0,new Intent(context,MainActivity.class),0);
+        PendingIntent pi = PendingIntent.getService(context,0,new Intent(context,RingtoneService.class),0);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                 .setContentTitle(msg)
                 .setContentText(msgText)
@@ -72,6 +66,9 @@ public class FenceReceiver extends BroadcastReceiver{
                 .setSmallIcon(R.drawable.icon)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
                 .setVibrate(new long[]{1000,1000});
+
+        Intent serviceIntent = new Intent(context,RingtoneService.class);
+        context.startService(serviceIntent);
 
         mBuilder.setContentIntent(pi);
 
@@ -81,8 +78,6 @@ public class FenceReceiver extends BroadcastReceiver{
         NotificationManager nm = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         nm.notify(1,mBuilder.build());
     }
-
-
 
 
 }

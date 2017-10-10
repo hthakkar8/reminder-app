@@ -50,7 +50,7 @@ public class LocationService extends Service {
         String rname=(String) intent.getExtras().get("rname");
         String id=(String) intent.getExtras().get("id");
         Log.i("Fence","Location Service : "+lat+" "+lng);
-        mAddGeoFence.addLocationFence(getApplicationContext(),lng,lat,rname,place);
+        mAddGeoFence.addLocationFence(getApplicationContext(),lng,lat,rname,place,id);
         Log.i("Fence","out onStartCommand()");
         return START_STICKY;
     }
