@@ -14,7 +14,9 @@ import android.widget.Toast;
 import com.google.android.gms.awareness.Awareness;
 import com.google.android.gms.awareness.fence.FenceState;
 import com.google.android.gms.common.api.GoogleApiClient;
-
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 /**
  * Created by SUYOG on 10/5/2017.
  */
@@ -22,6 +24,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 public class FenceReceiver extends BroadcastReceiver{
 
     final  String TAG = "Fence";
+    DatabaseReference mReminderRef;
+    FirebaseAuth  mAuth;
 
 
 
@@ -37,6 +41,9 @@ public class FenceReceiver extends BroadcastReceiver{
                     Toast.makeText(context,"entering in location",Toast.LENGTH_LONG).show();
 
                     createNotification(context,intent.getStringExtra("rname"),intent.getStringExtra("place"),"Alert");
+
+
+
 
                     Log.i("Fence",LocationService.mGoogleApiClient.toString()+"");
                     LocationService.mAddGeoFence.removeLocationFence(ReminderActivity.LOCATION_FENCE_KEY,context);
@@ -74,6 +81,8 @@ public class FenceReceiver extends BroadcastReceiver{
         NotificationManager nm = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         nm.notify(1,mBuilder.build());
     }
+
+
 
 
 }
