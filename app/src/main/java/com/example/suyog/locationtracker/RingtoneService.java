@@ -33,6 +33,7 @@ public class RingtoneService extends Service {
             Log.i("Fence","mMediaPlayer not Null");
             mMediaPlayer.stop();
             mMediaPlayer.seekTo(0);
+            mMediaPlayer=null;
         }
         else {
             Log.i("Fence","mMediaPlayer Null");
