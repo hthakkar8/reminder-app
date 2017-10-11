@@ -37,9 +37,18 @@ public class AddGeoFence{
     private final static int REQUEST_PERMISSION_RESULT_CODE = 42;
 
 
-    public void removeLocationFence(final String fenceKey, final Context context) {
+    public void removeLocationFence(final String fenceKey, final Context context,GoogleApiClient googleApiClient) {
+
+        if(googleApiClient == null){
+            Log.i("Fence","mGoogleApiClient null");
+            googleApiClient = new GoogleApiClient.Builder(context)
+                    .addApi(Awareness.API)
+                    .build();
+            googleApiClient.connect();
+        }
+
         Awareness.FenceApi.updateFences(
-                LocationService.mGoogleApiClient,
+                googleApiClient,
                 new FenceUpdateRequest.Builder()
                         .removeFence(fenceKey)
                         .build()).setResultCallback(new ResultCallbacks<Status>() {
@@ -61,11 +70,12 @@ public class AddGeoFence{
         });
     }
 
-    public void addLocationFence(Context context, double lng, double lat,String rname,String place) {
+    public void addLocationFence(Context context, double lng, double lat,String rname,String place,String id) {
         Log.i(TAG, "in addLocationFence()");
         Intent intent = new Intent(context, FenceReceiver.class);
         intent.putExtra("rname",rname);
         intent.putExtra("place",place);
+        intent.putExtra("id",id);
         PendingIntent mFencePendingIntent = PendingIntent.getBroadcast(context, 99, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Log.i(TAG, "in addLocationFence()2");

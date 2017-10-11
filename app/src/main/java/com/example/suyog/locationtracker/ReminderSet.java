@@ -106,4 +106,9 @@ public class ReminderSet
         mReminderRef.child("appusers").child(mAuth.getCurrentUser().getUid()).child("reminder").child(temp_reminder.getKey()).removeValue();
 
     }
+
+    public void deleteReminderByKey(String key){
+        mReminderRef.child("appusers").child(mAuth.getCurrentUser().getUid()).child("reminder").child(key).removeValue();
+
+    }
 }

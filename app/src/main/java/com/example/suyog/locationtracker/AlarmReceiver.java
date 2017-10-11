@@ -18,7 +18,7 @@ import static java.security.AccessController.getContext;
 public class AlarmReceiver extends BroadcastReceiver
 {
     double latitude,logitude;
-    String rname,place;
+    String rname,place,id;
 
     @Override
     public void onReceive(Context context, Intent intent)
@@ -29,12 +29,14 @@ public class AlarmReceiver extends BroadcastReceiver
         logitude=(double) intent.getExtras().get("lng");
         rname= (String) intent.getExtras().get("rname");
         place=(String) intent.getExtras().get("place");
+        id=(String) intent.getExtras().get("id");
         Log.i("Fence","Alarm Manager : "+latitude+" "+logitude);
         Intent location=new Intent(context,LocationService.class);
         location.putExtra("lng",logitude);
         location.putExtra("lat",latitude);
         location.putExtra("rname",rname);
         location.putExtra("place",place);
+        location.putExtra("id",id);
         context.startService(location);
         Log.i("Fence","latitude"+"  "+"logitude");
    }

@@ -262,7 +262,7 @@ public class AddRemainder extends Fragment {
             ReminderSet rs = ReminderSet.get(getActivity());
             rs.addReminder(reminder);
 
-            setAlarm(rname,pname,logitude,latitude);
+            setAlarm(rname,pname,logitude,latitude,id);
             Log.i("Fence","after setAlarm()");
             Toast.makeText(getActivity(),"Reminder Added",Toast.LENGTH_LONG);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content , new ReminderListFragment())
@@ -296,7 +296,7 @@ public class AddRemainder extends Fragment {
 
 
     }
-    public void setAlarm(String rname,String pname,double longitude,double latitude)
+    public void setAlarm(String rname,String pname,double longitude,double latitude,String id)
     {
         Log.i("Fence","setAlarm()");
         Calendar cal = Calendar.getInstance();
@@ -307,6 +307,7 @@ public class AddRemainder extends Fragment {
         intent.putExtra("place",pname);
         intent.putExtra("lng",longitude);
         intent.putExtra("lat",latitude);
+        intent.putExtra("id",id);
         Log.i("Fence","got lat lng");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(),99, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Log.i("Fence","PENDING INTENT");

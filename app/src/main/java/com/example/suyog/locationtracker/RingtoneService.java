@@ -29,10 +29,18 @@ public class RingtoneService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-          mMediaPlayer = MediaPlayer.create(this, R.raw.one);
-          mMediaPlayer.start();
-          return START_NOT_STICKY;
+        if( mMediaPlayer != null){
+            Log.i("Fence","mMediaPlayer not Null");
+            mMediaPlayer.stop();
+            mMediaPlayer.seekTo(0);
+        }
+        else {
+            Log.i("Fence","mMediaPlayer Null");
+            mMediaPlayer = MediaPlayer.create(this, R.raw.one);
+            mMediaPlayer.start();
 
+        }
+        return START_NOT_STICKY;
     }
 
 

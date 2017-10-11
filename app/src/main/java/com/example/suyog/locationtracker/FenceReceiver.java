@@ -35,12 +35,12 @@ public class FenceReceiver extends BroadcastReceiver{
             switch(fenceState.getCurrentState()) {
                 case FenceState.TRUE:
                     //Log.i(TAG, "Location Entering");
-                    Toast.makeText(context,"entering in location",Toast.LENGTH_LONG).show();
 
                     createNotification(context,intent.getStringExtra("rname"),intent.getStringExtra("place"),"Alert");
-
-                    Log.i("Fence",LocationService.mGoogleApiClient.toString()+"");
-                    LocationService.mAddGeoFence.removeLocationFence(ReminderActivity.LOCATION_FENCE_KEY,context);
+                    ReminderSet reminderSet=ReminderSet.get(context);
+                    reminderSet.deleteReminderByKey(intent.getStringExtra("id"));
+                    Log.i("Fence","deleted Reminder");
+                    LocationService.mAddGeoFence.removeLocationFence(ReminderActivity.LOCATION_FENCE_KEY,context,LocationService.mGoogleApiClient);
                     context.stopService(new Intent(context,LocationService.class));
                     Log.i(TAG,"IN ALARM");
                     break;
@@ -58,7 +58,7 @@ public class FenceReceiver extends BroadcastReceiver{
 
     private void createNotification(Context context, String msg, String msgText, String alert)
     {
-        PendingIntent pi = PendingIntent.getActivity(context,0,new Intent(context,MainActivity.class),0);
+        PendingIntent pi = PendingIntent.getService(context,0,new Intent(context,RingtoneService.class),0);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                 .setContentTitle(msg)
                 .setContentText(msgText)
