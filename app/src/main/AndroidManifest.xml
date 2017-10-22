@@ -15,13 +15,13 @@
         <meta-data android:name="com.google.android.awareness.API_KEY" android:value="AIzaSyBOsHEQsS_PaDmcT_sQ1ePZC6Ren3j21NY"/>
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBOsHEQsS_PaDmcT_sQ1ePZC6Ren3j21NY"/>
         <meta-data android:name="com.google.android.nearby.messages.API_KEY" android:value="AIzaSyBOsHEQsS_PaDmcT_sQ1ePZC6Ren3j21NY"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ReminderActivity" android:label="@string/title_activity_reminder" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ReminderActivity" android:label="@string/title_activity_reminder" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" />
         <receiver android:name="com.example.suyog.locationtracker.AlarmReceiver"></receiver>
         <receiver android:name="com.example.suyog.locationtracker.FenceReceiver"/>
         <service android:name=".LocationService"/>
