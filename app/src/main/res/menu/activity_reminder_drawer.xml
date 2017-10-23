@@ -5,15 +5,11 @@
         <item
             android:id="@+id/setremainder"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Set Remainder" />
+            android:title="Set Reminder" />
         <item
             android:id="@+id/viewremainder"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="View Remainder" />
-        <item
-            android:id="@+id/myprofile"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Profile" />
+            android:title="View Reminder" />
     </group>
 
     <item android:title="Communicate">
