@@ -1,36 +1,21 @@
 package com.example.suyog.locationtracker;
 
-import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
-import com.google.firebase.auth.FirebaseAuth;
+/**
+ * Created by ADMIN-PC on 10-01-2018.
+ */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends SingleFragmentActivity
+{
 
-
-    FirebaseAuth auth;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ActionBar actionBar=getSupportActionBar();
-        actionBar.hide();
-
-        auth=FirebaseAuth.getInstance();
-        if(auth.getCurrentUser() != null){
-            finish();
-            Intent intent=new Intent(MainActivity.this,ReminderActivity.class);
-            startActivity(intent);
-
-        }
-        stopService(new Intent(this, RingtoneService.class));
-
-        getSupportFragmentManager().beginTransaction().add(R.id.container,new Login(),"Log In").commit();
-
-
+    protected Fragment createFragment()
+    {
+        return LoginFragment.newInstance();
     }
+
+
 
 
 }
