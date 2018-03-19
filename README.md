@@ -9,3 +9,13 @@ The location data is only stored on your phone and not sent to any server, hence
     
 ### Screenshots
 
+### Create new reminder
+![Create Reminder](/screenshots/create-reminder.png)
+
+
+### Edit Reminder
+![Edit Reminder](/screenshots/edit.png)
+
+
+### Reminder List
+![Reminder List](/screenshots/reminder-list.png)
